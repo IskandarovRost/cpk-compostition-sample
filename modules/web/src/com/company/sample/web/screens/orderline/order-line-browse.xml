@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://orderLineBrowse.caption"
+        focusComponent="orderLinesTable"
+        messagesPack="com.company.sample.web.screens.orderline">
+    <data readOnly="true">
+        <collection id="orderLinesDc"
+                    class="com.company.sample.entity.OrderLine">
+            <view extends="_local"/>
+            <loader id="orderLinesDl">
+                <query>
+                    <![CDATA[select e from sample_OrderLine e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="orderLinesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="orderLinesTable"
+                dataLoader="orderLinesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="orderLinesTable"
+                    width="100%"
+                    dataContainer="orderLinesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id.orderLink"/>
+                <column id="id.productCode"/>
+                <column id="quantity"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="orderLinesTable.create"/>
+                <button id="editBtn" action="orderLinesTable.edit"/>
+                <button id="removeBtn" action="orderLinesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
